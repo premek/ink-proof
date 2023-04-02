@@ -252,7 +252,7 @@ class CompilerResult(object):
             "playCmdline": self.player_job.nice_command(),
             "compileOutPath": compile_stdout_path,
             "compileErrPath": compile_stderr_path,
-            "compileBytecodePath": compile_bytecode_path,
+            "compileBytecodePath": compile_bytecode_path.replace(".json", "_pink.lua"), # pink only - do not use in upstream
             "compileExitcode": self.compile_job.return_code,
             "diffExitcode": self.diff_job.return_code,
             "exitcode": self.player_job.return_code,
