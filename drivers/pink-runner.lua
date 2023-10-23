@@ -79,7 +79,11 @@ elseif action == 'run' then
       io.stderr:write('invalid answer '..tostring(answer)..'\n')
       os.exit(1)      
     end
-    print ('?> '..story.currentChoices[answer].choiceText)
+    io.write('?> ')
+    if story.currentChoices[answer].choiceText then
+        print(story.currentChoices[answer].choiceText)
+    end
+
     story.chooseChoiceIndex(answer)
   end
 
