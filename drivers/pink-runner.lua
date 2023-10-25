@@ -75,8 +75,12 @@ elseif action == 'run' then
     end
     -- TODO tags
     local answer = tonumber(io.read())
-    if not answer or answer > #story.currentChoices then
-      io.stderr:write('invalid answer '..tostring(answer)..'\n')
+    if not answer then
+      io.stderr:write('missing answer\n')
+      os.exit(1)      
+    end
+    if answer > #story.currentChoices then
+      io.stderr:write('invalid answer: '..tostring(answer)..'\n')
       os.exit(1)      
     end
     io.write('?> ')
