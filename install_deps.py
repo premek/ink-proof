@@ -158,8 +158,8 @@ DEPS = [
 
     # Pink
     ('deps/pink.zip',
-     'https://github.com/premek/pink/archive/06dfa572dfacc93ebc259d2b33eda49ce13c1933.zip',
-     '18496520b8d4c345c5a4abef4e5a1c0be2e97481',
+     'https://github.com/premek/pink/archive/183c3f3e9ed2f490c1651386b416d7ffdae2d4b9.zip',
+     'dc4a843b14922e4f95dada234656e7be98759a6e',
      'all'),
 
     # Tachyons
