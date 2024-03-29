@@ -14,6 +14,26 @@
                 "focus" 1fr
               / 1fr;
       }
+      pre {
+          counter-reset: line;
+      }
+      pre span.line {
+          padding-left:3.5em;
+          display: block;
+      }
+
+      pre span.line:before {
+          counter-increment: line;
+          content: counter(line);
+          border-right: 1px solid #eee;
+          display: inline-block;
+          padding: 0 0.5em;
+          margin-left: -5.5em;
+          margin-right: 0.5em;
+          color: #aaa;
+          width:3em;
+          text-align:right;
+      }
       @media screen and (min-width: 1024px) {
         main {
           grid:
@@ -236,9 +256,22 @@
         view(vnode) {
           const text = Files.get(vnode.attrs.path);
           const isLoading = Files.isLoading(vnode.attrs.path);
-          return text === "" ? m('p', m("i.gray", isLoading ? "Loading" : "Empty file")) : m("pre.f6", {
-            style: "white-space: pre-wrap; tab-size: 4;",
-          }, text ? text.split("\n").flatMap(l => [m('span', {title: "newline", class: "moon-gray", style: "user-select: none"}, "↵"), "\n", l]).slice(2) : "");
+          return text === "" ? 
+                m('p', m("i.gray", isLoading ? "Loading" : "Empty file")) :
+                m("pre.f6",
+                    { style: "white-space: pre-wrap; tab-size: 4;", },
+                    text
+                        ? text
+                            .split("\n")
+                            .flatMap(l =>
+                                m('span.line', [
+                                    l,
+                                    m('span', {title: "newline", class: "moon-gray", style: "user-select: none"}, "↵"),
+                                    "\n",
+                                ])
+                            )
+                        : ""
+                );
         },
       };
 
@@ -257,7 +290,14 @@
               style: "white-space: pre-wrap; tab-size: 4;",
             }, diff.map(p => {
                 const c = p.added ? 'bg-washed-green dark-green' : p.removed ? 'bg-washed-red dark-red' : '';
-                return p.value.split("\n").flatMap(l => [m('span', {title: "newline", class: c || "moon-gray", style: "user-select: none"}, "↵"), "\n", m('span', {class: c}, l)]).slice(2);
+                return p.value
+                    .split("\n")
+                    .flatMap(l => [
+                        m('span', {title: "newline", class: c || "moon-gray", style: "user-select: none"}, "↵"),
+                        "\n",
+                        m('span', {class: c}, l),
+                    ])
+                    .slice(2)
             }));
           }
         },
