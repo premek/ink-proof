@@ -67,6 +67,9 @@ elseif action == 'run' then
   while true do
     while story.canContinue do
       print(story.continue())
+      if #story.currentTags > 0 then
+        print('# tags: ' .. table.concat(story.currentTags, ', '))
+      end      
     end
     if #story.currentChoices == 0 then break end -- cannot continue and there are no choices
     print()
